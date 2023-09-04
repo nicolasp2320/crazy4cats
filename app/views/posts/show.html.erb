@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <table class="table table-bordered">
+        <tr>
+          <td class="text-center">
+            <h2><%= @post.titulo %></h2>
+            <p class="card-text"><%= @post.contenido %></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">
+            <strong>Likes:</strong> <%= @post.likes.count %>
+            <div class="d-flex justify-content-end">
+              <%= form_for [@post, Like.new], url: like_post_path(@post), method: :post, class: "mb-2" do |f| %>
+                <%= f.submit "Me gusta", class: "btn btn-success" %>
+              <% end %>
+              <% if current_user %>
+                <div>
+                  <%= link_to "Editar este post", edit_post_path(@post), class: "btn btn-primary me-2" %>
+                  <%= button_to "Eliminar este post", @post, method: :delete, class: "btn btn-danger" %>
+                </div>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">
+            <% if current_user %>
+              <div class="mb-3">
+                <%= render "comments/form", comment: Comment.new %>
+              </div>
+            <% end %>
+            
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Comentario</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @post.comments.each do |comment| %>
+                  <tr>
+                    <td>
+                      <% if comment.user.present? %>
+                        <%= comment.user.id %>
+                      <% else %>
+                        Anónimo
+                      <% end %>
+                    </td>
+                    <td><%= comment.contenido %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">
+            <%= link_to "Volver a las historias", posts_path, class: "btn btn-secondary" %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

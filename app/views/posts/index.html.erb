@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <p style="color: green"><%= notice %></p>
+      <h1 class="text-center">Historias</h1>
+
+      <div id="posts">
+        <% @posts.each do |post| %>
+          <%= render post %>
+        <% end %>
+      </div>
+
+      <% if current_user %>
+        <div class="text-center">
+          <%= link_to "Publica una historia", new_post_path, class: "btn btn-primary me-2" %>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

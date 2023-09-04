@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: crazycats2
+  username: postgres
+  password: nico123
+  host: localhost
+  port: 5432   
